@@ -8,9 +8,9 @@ export default {
     return {
       series: [
         {
-          name: "USD",
-          data: []
-        }
+          name: this.valuta,
+          data: [],
+        },
       ],
       chartOptions: {
         chart: {
@@ -20,21 +20,21 @@ export default {
           zoom: {
             type: "x",
             enabled: true,
-            autoScaleYaxis: true
+            autoScaleYaxis: true,
           },
           toolbar: {
-            autoSelected: "zoom"
-          }
+            autoSelected: "zoom",
+          },
         },
         dataLabels: {
-          enabled: false
+          enabled: false,
         },
         markers: {
-          size: 0
+          size: 0,
         },
         title: {
           text: "Stock Price Movement",
-          align: "left"
+          align: "left",
         },
         fill: {
           type: "gradient",
@@ -43,31 +43,31 @@ export default {
             inverseColors: false,
             opacityFrom: 0.5,
             opacityTo: 0,
-            stops: [0, 90, 100]
-          }
+            stops: [0, 90, 100],
+          },
         },
         yaxis: {
           labels: {
-            // formatter: function (val) {
-            //   return (val / 1000000).toFixed(0);
-            // },
+            formatter: function (val) {
+              return val.toFixed(2);
+            },
           },
           title: {
-            text: "Price"
-          }
+            text: "Price",
+          },
         },
         xaxis: {
-          categories: []
+          categories: [],
         },
         tooltip: {
           shared: false,
           y: {
-            formatter: function(val) {
-              return (val / 1000000).toFixed(0);
-            }
-          }
-        }
-      }
+            formatter: function (val) {
+              return val.toFixed(2);
+            },
+          },
+        },
+      },
     };
   },
   methods: {
@@ -80,26 +80,38 @@ export default {
         const dataInizioMese = oggi.toISOString().split("T")[0];
         console.log(dataInizioMese);
 
-        const response = await axios.get(`https://api.frankfurter.app/${dataInizioMese}..?to=${this.valuta}`);
+        const response = await axios.get(
+          `https://api.frankfurter.app/${dataInizioMese}..?to=${this.valuta}`
+        );
         console.log("Response data:", response.data);
-
         const ratesEntries = Object.entries(response.data.rates);
+        const seriesData = [];
         for (const [date, rates] of ratesEntries) {
-          console.log(rates.USD);
-          this.series[0].data.push({
-            x: date,
-            y: rates.USD
-          });
-          this.chartOptions.xaxis.categories.push(date);
-        }
+        const rate = rates[this.valuta]; // Ottieni il tasso di cambio per la valuta selezionata
+        console.log(rate);
+        
+        seriesData.push({
+          x: date,
+          y: rate
+        });
+        this.chartOptions.xaxis.categories.push(date);
+      }
+
+      // Aggiungi i dati della serie in base alla valuta selezionata
+      this.series[0].data = seriesData;
       } catch (error) {
         console.error("Error fetching data:", error);
       }
-    }
+    },
+  },
+  watch: {
+    valuta() {
+      this.GetHistoricValuta();
+    },
   },
   mounted() {
     this.GetHistoricValuta();
-  }
+  },
 };
 </script>
 
