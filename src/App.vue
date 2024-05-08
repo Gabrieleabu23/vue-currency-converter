@@ -29,6 +29,7 @@ export default {
       } else {
         this.link = `https://api.frankfurter.app/latest?amount=${this.amount}`;
       }
+      
       try {
         const response = await axios.get(this.link);
         // debug
@@ -44,10 +45,10 @@ export default {
         console.log(this.conversionAmount);
         // debug
         // console.log(this.valute);
+        
       } catch (error) {
         console.log(error);
       } finally {
-        
       }
     },
     updateAmount(newAmount) {
@@ -86,7 +87,7 @@ export default {
       :val2="this.val2"
       @input="updateSelect"
     />
-    <Result :conversionAmount="this.conversionAmount" />
+    <Result :conversionAmount="this.conversionAmount" :currency="this.val2" />
   </div>
   <div v-else>Caricamento...</div>
 </template>
