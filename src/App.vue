@@ -3,12 +3,16 @@ import axios from "axios";
 import SelectInput from "./components/SelectInput.vue";
 import InputValue from "./components/InputValue.vue";
 import Result from "./components/Result.vue";
+import chart from "./components/chart.vue";
+import ApexCharts from 'apexcharts'
+
 import { watch } from "vue";
 export default {
   components: {
     SelectInput,
     InputValue,
     Result,
+    chart
   },
   data() {
     return {
@@ -79,7 +83,7 @@ export default {
 </script>
 
 <template>
-  <div class="row justify-content-center" v-if="!this.isLoading">
+  <div class="row justify-content-center mt-4 " v-if="!this.isLoading">
     <InputValue :amount="this.amount" @input="updateAmount" />
     <SelectInput
       :Valute="this.valute"
@@ -88,6 +92,8 @@ export default {
       @input="updateSelect"
     />
     <Result :conversionAmount="this.conversionAmount" :currency="this.val2" />
+    <chart :valuta="this.val2"/>
+    
   </div>
   <div v-else>Caricamento...</div>
 </template>
