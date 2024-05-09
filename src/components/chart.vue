@@ -88,10 +88,9 @@ export default {
         const seriesData = [];
         for (const [date, rates] of ratesEntries) {
         const rate = rates[this.valuta]; // Ottieni il tasso di cambio per la valuta selezionata
-        console.log(rate);
         
         seriesData.push({
-          x: date,
+          x: date.split('-')[2],
           y: rate
         });
         this.chartOptions.xaxis.categories.push(date);
