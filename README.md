@@ -1,7 +1,27 @@
-# Vue 3 + Vite
+# Vue Currency Converter
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+A Vue 3 application that converts amounts between currencies using exchange-rate data from the [Frankfurter API](https://www.frankfurter.app/).
 
-## Recommended IDE Setup
+![Vue](https://img.shields.io/badge/Vue_3-42b883?logo=vuedotjs&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)
 
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
+## Features
+- Choose source and destination currencies.
+- Enter an amount and request a conversion.
+- Fetch exchange rates using Axios.
+- Show results and a chart component.
+
+## Technology
+Vue 3, Vite, JavaScript, Axios, Sass, ApexCharts.
+
+## Run locally
+```bash
+npm install
+npm run dev
+```
+Run `npm run build` to create a production bundle.
+
+## API
+The app uses the Frankfurter API for exchange-rate information. Rates are provided for informational purposes.
+
+## About
+A personal frontend learning project.
